@@ -46,6 +46,26 @@ $header = <<<HEAD
 HEAD;
 
 if (isset($_POST["type_mot_id"])) {
+
+    /*
+     * Insertion du nouveau mot
+     */
+
+    if($_POST["mot"] != ""){
+        $sql = "INSERT INTO mots (type_mot_id,mot) VALUES (:type_mot_id,:mot)";
+        $q = $conn->prepare($sql);
+        $q->execute(array(':type_mot_id'=>$_POST["type_mot_id"],
+                  ':mot'=>$_POST["mot"]));
+    }
+
+    /*
+     * Sélection des phrases à afficher
+     */
+
+    //d'autre code
+
+
+
     $main = <<<MAIN
 Ici votre cadavre...
 MAIN;
@@ -59,7 +79,7 @@ MAIN;
                         <div class="control-group">
                             <label class="control-label" for="inputEmail">Choisissez un ...</label>
                             <div class="controls">
-                            <input type="text" placeholder="$type_mots[$mot]">
+                            <input type="text" placeholder="$type_mots[$mot]" name="mot" required="required">
                             <input type="hidden" name="type_mot_id" value="$type_mot_id">
                             </div>
                         </div>

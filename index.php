@@ -1,11 +1,5 @@
 <?
 
-
-/**
- *
- *
- */
-
 $host = "localhost" ;
 $db = "exquis" ;
 $user = "exquis" ;
@@ -61,13 +55,50 @@ if (isset($_POST["type_mot_id"])) {
     /*
      * Sélection des phrases à afficher
      */
+    $sujets = array();
+    $verbes = array();
+    $complements = array();
 
-    //d'autre code
+    $sql = "SELECT type_mot_id, mot FROM mots";
+    $q	 = $conn->query($sql);
 
+    while($r = $q->fetch()){
+        switch($r["type_mot_id"]) {
+        case '1':
+            $sujets[] = htmlspecialchars($r["mot"]);
+            break;
+        case '2':
+            $verbes[] =  htmlspecialchars($r["mot"]);
+            break;
+        case '3':
+            $complements[] =  htmlspecialchars($r["mot"]);
+            break;
+        }
+    }
 
+    shuffle($sujets);
+    shuffle($verbes);
+    shuffle($complements);
 
+    $phrases = "<div id=\"cloud_tags\">" ;
+
+    while($sujet = array_pop($sujets)) {
+
+        $verbe = array_pop($verbes);
+        $complement = array_pop($complements);
+
+        if($verbe && $complement){
+            $phrases .= "<a href=\"/\" rel=\"".rand(1,10)."\">".$sujet . " " .$verbe . " " . $complement."</a>" ;
+        }
+    }
+    $phrases .= "</div>";
+
+    /*
+     * Affichage
+     * nuage de tags jquery ?
+     */
     $main = <<<MAIN
-Ici votre cadavre...
+$phrases
 MAIN;
 
 } else {
@@ -84,25 +115,33 @@ MAIN;
                             </div>
                         </div>
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">J'ai choisi mon mot</button>
+                            <button type="submit" class="btn btn-primary">J'envoie mon mot exquis</button>
                         </div>
                     </fieldset>
                 </form>
 MAIN;
 }
+
+
 $footer = <<<FOOTER
             </div><!-- #effects -->
         </div> <!-- #main-content -->
 
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/js/jquery.tagcloud.js"></script>
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-        <!-- script>
-        var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-        s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script -->
+        <script>
+          $.fn.tagcloud.defaults = {
+            size: {start: 1, end: 3, unit: 'em'},
+            color: {start: '#cde', end: '#f52'}
+          };
+
+          $(function () {
+            $('#cloud_tags a').tagcloud();
+          });
+
+        </script>
     </body>
 </html>
 FOOTER;

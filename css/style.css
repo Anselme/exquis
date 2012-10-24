@@ -4215,8 +4215,7 @@ a {
 }
 a:hover {
   color: white;
-  background-color: #D93800;
-  text-decoration: none;
+  text-decoration: underline;
 }
 legend {
   padding: 0;

@@ -134,7 +134,7 @@ $footer = <<<FOOTER
         <script>
           $.fn.tagcloud.defaults = {
             size: {start: 1, end: 3, unit: 'em'},
-            color: {start: '#cde', end: '#f52'}
+            color: {start: '#000', end: '#FFF'}
           };
 
           $(function () {

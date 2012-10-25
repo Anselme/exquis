@@ -1,4 +1,4 @@
-<?
+<?php
 
 $host = "localhost" ;
 $db = "exquis" ;
@@ -88,7 +88,7 @@ if (isset($_POST["type_mot_id"])) {
         $complement = array_pop($complements);
 
         if($verbe && $complement){
-            $phrases .= "<a href=\"/\" rel=\"".rand(1,10)."\">".$sujet . " " .$verbe . " " . $complement."</a>" ;
+            $phrases .= "<a href=\"/\" rel=\"".rand(1,10)."\">".ucfirst($sujet) . " " .$verbe . " " . $complement.".</a> " ;
         }
     }
     $phrases .= "</div>";
@@ -134,7 +134,7 @@ $footer = <<<FOOTER
         <script>
           $.fn.tagcloud.defaults = {
             size: {start: 1, end: 3, unit: 'em'},
-            color: {start: '#000', end: '#FFF'}
+            color: {start: '#000', end: '#BAB'}
           };
 
           $(function () {

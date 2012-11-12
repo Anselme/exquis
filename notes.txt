@@ -11,7 +11,7 @@
   * verbe troisième personne pluriel
   * complèment de temps, d'objet, de lieu etc...
 
-- On conserve le principe d'obliger l'internaute à saisir un mot por créer une phrase.
+- On conserve le principe d'obliger l'internaute à saisir un mot pour créer une phrase.
 
 - La phrase est là : avec un bouton "Publier ce exquis cadavre" :
   * vérification que la phrase fait moins de 140 caractères.

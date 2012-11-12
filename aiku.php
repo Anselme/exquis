@@ -11,16 +11,31 @@ $conn = new PDO("mysql:host=$host;dbname=$db",$user,$mdp);
 $sql = "SELECT * FROM phrases WHERE active=1";
 $q	 = $conn->query($sql) or die("failed!");
 while($r = $q->fetch(PDO::FETCH_ASSOC)){
-    $cadavres[] = utf8_encode($r['phrase']);
+    $cadavres[] = $r['phrase'];
 }
 
-shuffle($phrases);
+shuffle($cadavres);
+$cadavres = array_slice($cadavres, 0, 15);
 
-$phrases = "<div id=\"cloud_tags\">" ;
+$phrases = "<div id=\"cloud_tags\" class=\"moving_cloud\">" ;
+
 foreach($cadavres as $cadavre){
     $phrases .= "<a href=\"/\" rel=\"".rand(1,10)."\">".$cadavre.".</a> " ;
 }
 $phrases .= "</div>";
+
+/***********************
+ *
+ * Réponse à l'appelle
+ * Ajax
+ *
+ **********************/
+
+if(isset($_POST['action']) && $_POST['action']=="getNewCadavre") {
+    echo(array_pop($cadavres));
+    exit ;
+}
+
 
 $main = <<<MAIN
 $phrases

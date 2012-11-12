@@ -1,9 +1,8 @@
 <?php
 
-$host = "localhost" ;
-$db = "exquis" ;
-$user = "exquis" ;
-$mdp = "10CadEx10" ;
+include_once('config.inc.php');
+include_once('header.php');
+include_once('footer.php');
 
 $type_mots = array();
 
@@ -19,44 +18,33 @@ $mot = array_rand($type_mots, 1 );
 $type_mot_id = $mot + 1 ;
 
 
-$header = <<<HEAD
-<!DOCTYPE html>
-<html lang="fr-FR">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="description" content="">
-        <link rel="stylesheet" href="/css/style.css" type="text/css" media="all" />
-        <link rel="shortcut icon" href="favicon.ico" />
-        <title>Exquis</title>
-    </head>
-
-    <body>
-        <!-- Prompt IE 6 users to install Chrome Frame.-->
-        <!--[if lt IE 7]>
-        <p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p>
-        <![endif]-->
-        <div id="main-content">
-            <div id="effect">
-HEAD;
-
 if (isset($_POST["type_mot_id"])) {
 
-    /*
+    /***************************
+     *
      * Insertion du nouveau mot
-     */
+     * et
+     * Création de la phrase
+     *
+     **************************/
 
-    if($_POST["mot"] != ""){
-        $sql = "INSERT INTO mots (type_mot_id,mot) VALUES (:type_mot_id,:mot)";
-        $q = $conn->prepare($sql);
-        $q->execute(array(':type_mot_id'=>$_POST["type_mot_id"],
-                  ':mot'=>$_POST["mot"]));
-    }
+    $mots_saisis = strip_tags($_POST["mot"]);
+    $type_mot_id = $_POST["type_mot_id"];
+
+        if($mots_saisis != ""){
+            $sql = "INSERT INTO mots (type_mot_id,mot) VALUES (:type_mot_id,:mot)";
+            $q = $conn->prepare($sql);
+            $q->execute(array(':type_mot_id'=>$type_mot_id,
+                ':mot'=>$mots_saisis));
+        }
 
     /*
-     * Sélection des phrases à afficher
+     * Sélection de la phrase à afficher
      */
-    $sujets = array();
-    $verbes = array();
+    $sujets_pluriel = array();
+    $sujets_singulier = array();
+    $verbes_pluriel = array();
+    $verbes_singulier = array();
     $complements = array();
 
     $sql = "SELECT type_mot_id, mot FROM mots";
@@ -65,52 +53,94 @@ if (isset($_POST["type_mot_id"])) {
     while($r = $q->fetch()){
         switch($r["type_mot_id"]) {
         case '1':
-            $sujets[] = htmlspecialchars($r["mot"]);
+            $sujets_singulier[] = htmlspecialchars($r["mot"]);
             break;
         case '2':
-            $verbes[] =  htmlspecialchars($r["mot"]);
+            $verbes_singulier[] =  htmlspecialchars($r["mot"]);
             break;
         case '3':
             $complements[] =  htmlspecialchars($r["mot"]);
             break;
+        case '4':
+            $sujets_pluriel[] =  htmlspecialchars($r["mot"]);
+            break;
+        case '5':
+            $verbes_pluriel[] =  htmlspecialchars($r["mot"]);
+            break;
         }
     }
 
-    shuffle($sujets);
-    shuffle($verbes);
+    shuffle($sujets_singulier);
+    shuffle($sujets_pluriel);
+    shuffle($verbes_singulier);
+    shuffle($verbes_pluriel);
     shuffle($complements);
 
     $phrases = "<div id=\"cloud_tags\">" ;
 
-    while($sujet = array_pop($sujets)) {
 
-        $verbe = array_pop($verbes);
-        $complement = array_pop($complements);
+    $sujet_singulier = array_pop($sujets_singulier);
+    $sujet_pluriel = array_pop($sujets_pluriel);
+    $verbe_singulier = array_pop($verbes_singulier);
+    $verbe_pluriel = array_pop($verbes_pluriel);
+    $complement = array_pop($complements);
 
-        if($verbe && $complement){
-            $phrases .= "<a href=\"/\" rel=\"".rand(1,10)."\">".ucfirst($sujet) . " " .strtolower($verbe) . " " . strtolower($complement).".</a> " ;
-        }
+    $quantite = rand();
+
+    switch($type_mot_id){
+    case '1': //sujet singulier
+        $sujet = $mots_saisis;
+        $verbe = $verbe_singulier;
+        break;
+    case '2': //verbe singulier
+        $sujet = $sujet_singulier;
+        $verbe = $mots_saisis;
+        break;
+    case '3': // complement
+        ($quantite%2)?$sujet= $sujet_singulier:$sujet=$sujet_pluriel ;
+        ($quantite%2)?$verbe= $verbe_singulier:$verbe=$verbe_pluriel ;
+        $complement = $mots_saisis;
+        break;
+    case '4': //sujet pluriel
+        $sujet = $mots_saisis;
+        $verbe = $verbe_pluriel;
+        break;
+    case '5': //verbe pluriel
+        $sujet = $sujet_pluriel;
+        $verbe = $mots_saisis;
+        break;
     }
+
+    $phrases .= "<a href=\"/\" rel=\"".rand(1,10)."\">".ucfirst($sujet)."</a> " ;
+    $phrases .= "<a href=\"/\" rel=\"".rand(1,10)."\">".strtolower($verbe)."</a> " ;
+    $phrases .= "<a href=\"/\" rel=\"".rand(1,10)."\">".strtolower($complement).".</a> " ;
     $phrases .= "</div>";
 
-    /*
-     * Affichage
-     * nuage de tags jquery
-     */
-    $main = <<<MAIN
+/*
+ * Affichage
+ * nuage de tags jquery
+ */
+$main = <<<MAIN
 $phrases
 MAIN;
 
 } else {
+    /***************************
+     *
+     * Formaulaire
+     * de la
+     * Page d'accueil
+     *
+     * *************************/
 
     $main = <<<MAIN
                 <form method="POST">
                     <fieldset>
-                        <legend>Apportez votre pierre à notre <strong>Cadavre</strong></legend>
+                        <legend>Apportez votre pierre à notre Cadavre</legend>
                         <div class="control-group">
-                            <label class="control-label" for="inputEmail">Choisissez un ...</label>
+                            <label class="control-label" for="inputEmail">Choisissez un ... <strong>$type_mots[$mot]</strong></label>
                             <div class="controls">
-                            <input type="text" placeholder="$type_mots[$mot]" name="mot" required="required">
+                            <input type="text" placeholder="..." name="mot" required="required">
                             <input type="hidden" name="type_mot_id" value="$type_mot_id">
                             </div>
                         </div>
@@ -123,27 +153,5 @@ MAIN;
 }
 
 
-$footer = <<<FOOTER
-            </div><!-- #effects -->
-        </div> <!-- #main-content -->
-
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="/js/jquery.tagcloud.js"></script>
-        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-        <script>
-          $.fn.tagcloud.defaults = {
-            size: {start: 1, end: 3, unit: 'em'},
-            color: {start: '#000', end: '#BAB'}
-          };
-
-          $(function () {
-            $('#cloud_tags a').tagcloud();
-          });
-
-        </script>
-    </body>
-</html>
-FOOTER;
 
 echo $header . $main . $footer;

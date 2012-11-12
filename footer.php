@@ -17,7 +17,13 @@ $footer = <<<FOOTER
             $('#cloud_tags a').tagcloud();
           });
 
-        </script>
+          $('#publier').popover({
+            placement: 'right',
+            trigger: 'hover',
+            content: '... sera conservé en base et publié sur Twitter',
+            title: 'Votre cadavre'
+          });
+      </script>
     </body>
 </html>
 FOOTER;

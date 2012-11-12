@@ -141,7 +141,7 @@ $phrases
                     <fieldset>
                             <input type="hidden" name="publication" value="$phrase_id">
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Publier cet exquis cadavre</button>
+                            <button id="publier" type="submit" class="btn btn-primary">Publier cet exquis cadavre</button>
                         </div>
                     </fieldset>
                 </form>

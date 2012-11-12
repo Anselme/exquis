@@ -118,7 +118,7 @@ if (isset($_POST["type_mot_id"])) {
 
 
     /*
-     * INsertiond el aphrase en non active
+     * Insertion de la phrase non active
      *
      */
     $sql = "INSERT INTO phrases (phrase, active) VALUES (:phrase,:active)";
@@ -150,7 +150,7 @@ MAIN;
 } else {
     /***************************
      *
-     * Formaulaire
+     * Formulaire
      * de la
      * Page d'accueil
      *
@@ -179,7 +179,7 @@ MAIN;
 if(isset($_POST["publication"])) {
     /***************************
      *
-     * Insertion dans la BDD
+     * Activation de la phrase dans la BDD
      * Et
      * Publication twitter
      *

@@ -88,14 +88,14 @@ if (isset($_POST["type_mot_id"])) {
         $complement = array_pop($complements);
 
         if($verbe && $complement){
-            $phrases .= "<a href=\"/\" rel=\"".rand(1,10)."\">".ucfirst($sujet) . " " .$verbe . " " . $complement.".</a> " ;
+            $phrases .= "<a href=\"/\" rel=\"".rand(1,10)."\">".ucfirst($sujet) . " " .strtolower($verbe) . " " . strtolower($complement).".</a> " ;
         }
     }
     $phrases .= "</div>";
 
     /*
      * Affichage
-     * nuage de tags jquery ?
+     * nuage de tags jquery
      */
     $main = <<<MAIN
 $phrases
@@ -106,7 +106,7 @@ MAIN;
     $main = <<<MAIN
                 <form method="POST">
                     <fieldset>
-                        <legend>Apporter votre pierre à notre <strong>Cadavre</strong></legend>
+                        <legend>Apportez votre pierre à notre <strong>Cadavre</strong></legend>
                         <div class="control-group">
                             <label class="control-label" for="inputEmail">Choisissez un ...</label>
                             <div class="controls">

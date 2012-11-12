@@ -29,14 +29,14 @@ if (isset($_POST["type_mot_id"])) {
      **************************/
 
     $mots_saisis = strip_tags($_POST["mot"]);
-    $type_mot_id = $_POST["type_mot_id"];
+    $type_mot_id = (int) $_POST["type_mot_id"];
 
-        if($mots_saisis != ""){
-            $sql = "INSERT INTO mots (type_mot_id,mot) VALUES (:type_mot_id,:mot)";
-            $q = $conn->prepare($sql);
-            $q->execute(array(':type_mot_id'=>$type_mot_id,
-                ':mot'=>$mots_saisis));
-        }
+    if($mots_saisis != ""){
+        $sql = "INSERT INTO mots (type_mot_id,mot) VALUES (:type_mot_id,:mot)";
+        $q = $conn->prepare($sql);
+        $q->execute(array(':type_mot_id'=>$type_mot_id,
+            ':mot'=>$mots_saisis));
+    }
 
     /*
      * Sélection de la phrase à afficher
@@ -47,7 +47,7 @@ if (isset($_POST["type_mot_id"])) {
     $verbes_singulier = array();
     $complements = array();
 
-    $sql = "SELECT type_mot_id, mot FROM mots";
+    $sql = "SELECT type_mot_id, id, mot FROM mots";
     $q	 = $conn->query($sql);
 
     while($r = $q->fetch()){
@@ -116,12 +116,35 @@ if (isset($_POST["type_mot_id"])) {
     $phrases .= "<a href=\"/\" rel=\"".rand(1,10)."\">".strtolower($complement).".</a> " ;
     $phrases .= "</div>";
 
-/*
- * Affichage
- * nuage de tags jquery
- */
-$main = <<<MAIN
+
+    /*
+     * INsertiond el aphrase en non active
+     *
+     */
+    $sql = "INSERT INTO phrases (phrase, active) VALUES (:phrase,:active)";
+    $q = $conn->prepare($sql);
+    $q->execute(array(
+        ':phrase'=> ucfirst($sujet)." ".strtolower($verbe)." ".strtolower($complement),
+        ':active' => 0,
+    ));
+
+    $phrase_id = $conn->lastInsertId();
+
+
+    /*
+     * Affichage
+     * nuage de tags jquery
+     */
+    $main = <<<MAIN
 $phrases
+                <form method="POST">
+                    <fieldset>
+                            <input type="hidden" name="publication" value="$phrase_id">
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Publier cet exquis cadavre</button>
+                        </div>
+                    </fieldset>
+                </form>
 MAIN;
 
 } else {
@@ -152,6 +175,26 @@ MAIN;
 MAIN;
 }
 
+
+if(isset($_POST["publication"])) {
+    /***************************
+     *
+     * Insertion dans la BDD
+     * Et
+     * Publication twitter
+     *
+     * *************************/
+
+    echo('Done');
+
+    $publication = (int) $_POST["publication"] ;
+    $sql = "UPDATE phrases SET active = :active WHERE id = :publication";
+    $q = $conn->prepare($sql);
+    $q->execute(array(
+        ':active' => 1,
+        ':publication' => $publication,
+    ));
+}
 
 
 echo $header . $main . $footer;

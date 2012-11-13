@@ -202,7 +202,7 @@ if(isset($_POST["publication"])) {
     ));
 
     while($r = $q->fetch(PDO::FETCH_ASSOC)){
-        $message = utf8_encode($r['phrase']);
+        $message = $r['phrase'];
     }
 
     $tmhOAuth = new tmhOAuth(array(
@@ -214,7 +214,7 @@ if(isset($_POST["publication"])) {
 	));
 
 	$tmhOAuth->request('POST', $tmhOAuth->url('1/statuses/update'), array(
-	'status' => utf8_encode($message)
+	'status' => $message
 	));
 }
 

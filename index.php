@@ -185,7 +185,6 @@ if(isset($_POST["publication"])) {
      *
      * *************************/
 
-    echo('Done');
 
     $publication = (int) $_POST["publication"] ;
     $sql = "UPDATE phrases SET active = :active WHERE id = :publication";
@@ -194,6 +193,29 @@ if(isset($_POST["publication"])) {
         ':active' => 1,
         ':publication' => $publication,
     ));
+
+    require_once('tmhOAuth.php');
+    $sql = "SELECT * FROM phrases WHERE id = :publication";
+    $q	 = $conn->prepare($sql);
+    $q->execute(array(
+        ':publication' => $publication,
+    ));
+
+    while($r = $q->fetch(PDO::FETCH_ASSOC)){
+        $message = utf8_encode($r['phrase']);
+    }
+
+    $tmhOAuth = new tmhOAuth(array(
+	'consumer_key' => $consumerKey ,
+	'consumer_secret' => $consumerSecret ,
+	'user_token' => $accessToken ,
+	'user_secret' => $accessTokenSecret ,
+    'curl_ssl_verifypeer'   => false
+	));
+
+	$tmhOAuth->request('POST', $tmhOAuth->url('1/statuses/update'), array(
+	'status' => utf8_encode($message)
+	));
 }
 
 

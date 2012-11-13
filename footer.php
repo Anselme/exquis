@@ -21,7 +21,7 @@ $footer = <<<FOOTER
           $('#publier').popover({
             placement: 'right',
             trigger: 'hover',
-            content: '... sera conservé en base et publié sur Twitter',
+            content: '... sera conservé en base et publié sur <a href="https://twitter.com/letsroot1" target="_blank">twitter.com/letsroot1</a>',
             title: 'Votre cadavre'
           });
 

@@ -17,13 +17,6 @@ while($r = $q->fetch(PDO::FETCH_ASSOC)){
 shuffle($cadavres);
 $cadavres = array_slice($cadavres, 0, 15);
 
-$phrases = "<div id=\"cloud_tags\" class=\"moving_cloud\">" ;
-
-foreach($cadavres as $cadavre){
-    $phrases .= "<a href=\"/\" rel=\"".rand(1,10)."\">".$cadavre.".</a> " ;
-}
-$phrases .= "</div>";
-
 /***********************
  *
  * Réponse à l'appelle
@@ -35,6 +28,18 @@ if(isset($_POST['action']) && $_POST['action']=="getNewCadavre") {
     echo(array_pop($cadavres));
     exit ;
 }
+
+/**************
+ *
+ * construction du nuage de départ
+ *
+ * ************/
+$phrases = "<div id=\"cloud_tags\" class=\"moving_cloud\">" ;
+
+foreach($cadavres as $cadavre){
+    $phrases .= "<a href=\"/\" rel=\"".rand(1,10)."\">".$cadavre.".</a> " ;
+}
+$phrases .= "</div>";
 
 
 $main = <<<MAIN

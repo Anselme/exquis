@@ -1,0 +1,11 @@
+#exquis {
+
+    font-size: 2em;
+    color: #BABBAB;
+
+}
+
+#exquis a:hover  {
+    text-decoration: underline;
+    color: #BABBAB ;
+}

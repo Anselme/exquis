@@ -7,6 +7,7 @@ $header = <<<HEAD
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="description" content="">
         <link rel="stylesheet" href="/css/style.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="/css/exquis.css" type="text/css" media="all" />
         <link rel="shortcut icon" href="favicon.ico" />
         <title>Exquis</title>
     </head>

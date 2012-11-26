@@ -111,9 +111,9 @@ if (isset($_POST["type_mot_id"])) {
         break;
     }
 
-    $phrases .= "<a href=\"/\" rel=\"".rand(1,10)."\">".ucfirst($sujet)."</a> " ;
-    $phrases .= "<a href=\"/\" rel=\"".rand(1,10)."\">".strtolower($verbe)."</a> " ;
-    $phrases .= "<a href=\"/\" rel=\"".rand(1,10)."\">".strtolower($complement).".</a> " ;
+    $phrases .= "<a href=\"/\" id=\"exquis\">".ucfirst($sujet)." " ;
+    $phrases .= strtolower($verbe)." " ;
+    $phrases .= strtolower($complement).".</a> " ;
     $phrases .= "</div>";
 
 
@@ -141,7 +141,8 @@ $phrases
                     <fieldset>
                             <input type="hidden" name="publication" value="$phrase_id">
                         <div class="form-actions">
-                            <button id="publier" type="submit" class="btn btn-primary">Publier cet exquis cadavre</button>
+                            <a href="/" id="annuler" class="btn btn-info">J'essaie encore</a>
+                            <button id="publier" type="submit" class="btn btn-success">Publier cet exquis cadavre</button>
                         </div>
                     </fieldset>
                 </form>

@@ -37,7 +37,7 @@ if(isset($_POST['action']) && $_POST['action']=="getNewCadavre") {
 $phrases = "<div id=\"cloud_tags\" class=\"moving_cloud\">" ;
 
 foreach($cadavres as $cadavre){
-    $phrases .= "<a href=\"/\" rel=\"".rand(1,10)."\">".$cadavre.".</a> " ;
+    $phrases .= "<a href=\"/\" rel=\"".rand(1,10)."\">".trim($cadavre).".</a> " ;
 }
 $phrases .= "</div>";
 

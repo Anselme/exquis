@@ -25,6 +25,14 @@ $footer = <<<FOOTER
             title: 'Votre cadavre'
           });
 
+          /* po up on hover sur bouton retour home */
+          $('#annuler').popover({
+            placement: 'left',
+            trigger: 'hover',
+            content: "La phrase ne me convient pas, j'essaie encore",
+            title: 'Votre cadavre'
+          });
+
           /* animation du nuage de tag */
           function test(){
 

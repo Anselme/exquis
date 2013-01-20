@@ -5,7 +5,7 @@ $header = <<<HEAD
 <html lang="fr-FR">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="description" content="">
+        <meta name="description" content="cadavre exquis printemps poètes mdq maison de quartier Angers centre">
         <link rel="stylesheet" href="/css/style.css" type="text/css" media="all" />
         <link rel="stylesheet" href="/css/exquis.css" type="text/css" media="all" />
         <link rel="shortcut icon" href="favicon.ico" />

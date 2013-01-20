@@ -9,3 +9,9 @@
     text-decoration: underline;
     color: #BABBAB ;
 }
+
+
+#footer {
+    margin: 10px auto 40px auto;
+    width: 800px;
+}

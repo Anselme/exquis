@@ -160,7 +160,9 @@ MAIN;
     $main = <<<MAIN
                 <form method="POST">
                     <fieldset>
-                        <legend>Apportez votre pierre à notre Cadavre</legend>
+                        <legend>Jouer au cadavre exquis<br/>
+                            <small>"Bien placés, bien choisis, Quelques mots font une poésie." Raymond Queneau</small>
+                        </legend>
                         <div class="control-group">
                             <label class="control-label" for="inputEmail">Choisissez un ... <strong>$type_mots[$mot]</strong></label>
                             <div class="controls">
@@ -207,12 +209,14 @@ if(isset($_POST["publication"])) {
     }
 
     $tmhOAuth = new tmhOAuth(array(
-	'consumer_key' => $consumerKey ,
-	'consumer_secret' => $consumerSecret ,
-	'user_token' => $accessToken ,
-	'user_secret' => $accessTokenSecret ,
-    'curl_ssl_verifypeer'   => false
+        'consumer_key' => $consumerKey ,
+        'consumer_secret' => $consumerSecret ,
+        'user_token' => $accessToken ,
+        'user_secret' => $accessTokenSecret ,
+        'curl_ssl_verifypeer'   => false
 	));
+
+    $message = "#printempsdespoètes ".$message ;
 
 	$tmhOAuth->request('POST', $tmhOAuth->url('1/statuses/update'), array(
 	'status' => $message

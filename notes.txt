@@ -24,3 +24,13 @@
 nom de domaine : Gildas va voir 
 twitter : Gildas va voir 
 
+
+/*********************/
+/*                   */
+/*     HOW TO        */
+/*                   */
+/*********************/
+
+cf https://dev.twitter.com/
+https://dev.twitter.com/apps/
+

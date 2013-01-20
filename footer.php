@@ -3,6 +3,39 @@ $footer = <<<FOOTER
             </div><!-- #effects -->
         </div> <!-- #main-content -->
 
+
+<div id="footer" class="">
+    <div class="row">
+    <div class="span1">
+    <a href="https://twitter.com/MDQAngersCentre" class="" title="Compte Twitter de la Maison de Quartier Angers Centre">
+    <img src="img/twitter.jpg" alt="Compte Twitter de la Maison de Quartier Angers Centre">
+    </a>
+    </div>
+    <div class="span1 offset5">
+    <a href="http://www.angers.fr" class="thumbnail" title="Site de la Ville d'Angers">
+    <img src="img/angers.jpg" alt="Logo de la Ville d'Angers">
+    </a>
+    </div>
+    <div class="span1">
+    <a href="http://www.caf.fr" class="thumbnail" title="Caisses d'Allocations Familiales">
+    <img src="img/caf.jpg" alt="Caisses d'Allocations Familiales de l'Anjou">
+    </a>
+    </div>
+    <div class="span1">
+    <a href="http://www.angers-centre-animation.fr/" class="thumbnail" title="Maison de Quartier Angers Centre">
+    <img src="img/mdq.png" alt="Maison de Quartier Angers Centre">
+    </a>
+    </div>
+    <div class="span1">
+    <a href="http://www.printempsdespoetes.com/" class="thumbnail" title="15e pritemps des poetes">
+    <img src="img/pdp.jpg" alt="15e pritemps des poetes">
+    </a>
+    </div>
+    </ul>
+</div>
+
+
+
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
         <script type="text/javascript" src="/js/jquery.tagcloud.js"></script>
@@ -21,7 +54,7 @@ $footer = <<<FOOTER
           $('#publier').popover({
             placement: 'right',
             trigger: 'hover',
-            content: '... sera conservé en base et publié sur <a href="https://twitter.com/letsroot1" target="_blank">twitter.com/letsroot1</a>',
+            content: '... sera conservé en base et publié sur <a href="https://twitter.com/MDQAngersCentre" target="_blank">twitter.com/MDQAngersCentre</a>',
             title: 'Votre cadavre'
           });
 

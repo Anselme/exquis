@@ -8,7 +8,7 @@ $footer = <<<FOOTER
     <div class="row">
     <div class="span1">
     <a href="https://twitter.com/MDQAngersCentre" class="" title="Compte Twitter de la Maison de Quartier Angers Centre">
-    <img src="img/twitter.jpg" alt="Compte Twitter de la Maison de Quartier Angers Centre">
+    <img src="img/twitter.png" alt="Compte Twitter de la Maison de Quartier Angers Centre">
     </a>
     </div>
     <div class="span1 offset5">

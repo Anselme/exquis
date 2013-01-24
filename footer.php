@@ -12,8 +12,8 @@ $footer = <<<FOOTER
     </a>
     </div>
     <div class="span1 offset5">
-    <a href="http://www.angers.fr" class="thumbnail" title="Site de la Ville d'Angers">
-    <img src="img/angers.jpg" alt="Logo de la Ville d'Angers">
+    <a href="http://www.angers-centre-animation.fr/" class="thumbnail" title="Maison de Quartier Angers Centre">
+    <img src="img/mdq.jpg" alt="Maison de Quartier Angers Centre">
     </a>
     </div>
     <div class="span1">
@@ -22,12 +22,12 @@ $footer = <<<FOOTER
     </a>
     </div>
     <div class="span1">
-    <a href="http://www.angers-centre-animation.fr/" class="thumbnail" title="Maison de Quartier Angers Centre">
-    <img src="img/mdq.png" alt="Maison de Quartier Angers Centre">
+    <a href="http://www.angers.fr" class="thumbnail" title="Site de la Ville d'Angers">
+    <img src="img/angers.jpg" alt="Logo de la Ville d'Angers">
     </a>
     </div>
     <div class="span1">
-    <a href="http://www.printempsdespoetes.com/" class="thumbnail" title="15e pritemps des poetes">
+    <a href="http://www.printempsdespoetes.com/" class="thumbnail" title="15e printemps des poetes">
     <img src="img/pdp.jpg" alt="15e pritemps des poetes">
     </a>
     </div>

@@ -11,9 +11,9 @@ $footer = <<<FOOTER
     <img src="img/twitter.png" alt="Compte Twitter de la Maison de Quartier Angers Centre">
     </a>
     </div>
-    <div class="span1 offset5">
+    <div class="span2 offset4">
     <a href="http://www.angers-centre-animation.fr/" class="thumbnail" title="Maison de Quartier Angers Centre">
-    <img src="img/mdq.jpg" alt="Maison de Quartier Angers Centre">
+    <img src="img/mdq.png" alt="Maison de Quartier Angers Centre">
     </a>
     </div>
     <div class="span1">

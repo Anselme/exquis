@@ -116,16 +116,19 @@ if (isset($_POST["type_mot_id"])) {
     $phrases .= strtolower($complement).".</a> " ;
     $phrases .= "</div>";
 
+    $letters = 'abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    $hash = substr(str_shuffle($letters), 0, 16);
 
     /*
      * Insertion de la phrase non active
      *
      */
-    $sql = "INSERT INTO phrases (phrase, active) VALUES (:phrase,:active)";
+    $sql = "INSERT INTO phrases (phrase, active, hash) VALUES (:phrase,:active,:hash)";
     $q = $conn->prepare($sql);
     $q->execute(array(
-        ':phrase'=> ucfirst($sujet)." ".strtolower($verbe)." ".strtolower($complement),
+        ':phrase' => ucfirst($sujet)." ".strtolower($verbe)." ".strtolower($complement),
         ':active' => 0,
+        ':hash'   => $hash,
     ));
 
     $phrase_id = $conn->lastInsertId();
@@ -140,6 +143,7 @@ $phrases
                 <form method="POST">
                     <fieldset>
                             <input type="hidden" name="publication" value="$phrase_id">
+                            <input type="hidden" name="hash" value="$hash">
                         <div class="form-actions">
                             <a href="/" id="annuler" class="btn btn-info">J'essaie encore</a>
                             <button id="publier" type="submit" class="btn btn-success">Publier cet exquis cadavre</button>
@@ -190,18 +194,22 @@ if(isset($_POST["publication"])) {
 
 
     $publication = (int) $_POST["publication"] ;
-    $sql = "UPDATE phrases SET active = :active WHERE id = :publication";
+    $hash = $_POST["hash"] ;
+
+    $sql = "UPDATE phrases SET active = :active WHERE id = :publication AND hash = :hash ";
     $q = $conn->prepare($sql);
     $q->execute(array(
         ':active' => 1,
         ':publication' => $publication,
+        ':hash' => $hash,
     ));
 
     require_once('tmhOAuth.php');
-    $sql = "SELECT * FROM phrases WHERE id = :publication";
+    $sql = "SELECT * FROM phrases WHERE id = :publication AND active = 1 AND hash = :hash ";
     $q	 = $conn->prepare($sql);
     $q->execute(array(
         ':publication' => $publication,
+        ':hash' => $hash,
     ));
 
     while($r = $q->fetch(PDO::FETCH_ASSOC)){

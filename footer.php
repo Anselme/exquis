@@ -31,6 +31,7 @@ $footer = <<<FOOTER
     <img src="img/pdp.jpg" alt="15e pritemps des poetes">
     </a>
     </div>
+    </div>
 </div>
 
 
